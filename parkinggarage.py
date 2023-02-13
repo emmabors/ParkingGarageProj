@@ -1,3 +1,4 @@
+# Luke
 class Garage():
     def __init__(self, num_of_tickets):
         self.num_of_tickets = num_of_tickets
@@ -35,7 +36,7 @@ class Garage():
             elif i % 2 == 1:
                 parked += f'|_{x}     |'[::-1] +  str(i+1) +'\n'
         print(parked)
-
+# Emma
     def take_ticket(self):
         bike = '.-._'
         truck = ':-:='
@@ -92,7 +93,7 @@ class Garage():
 
                    
 
-
+# Luke
     def runner(self):
         self.space_display()
         self.display_garage()
