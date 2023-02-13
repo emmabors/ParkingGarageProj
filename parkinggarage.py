@@ -40,8 +40,11 @@ class Garage():
         bike = '.-._'
         truck = ':-:='
         car = ':-:_'
+        print('\n')
         vehicle = int(input('What kind of vehicle do you have? | 1: Car | 2: Truck | 3: Bike |'))
+        print('\n')
         parking_spot = int(input('What Spot would you like to take?'))
+        print('\n')
         parking_spot -= 1
         if  self.parking[parking_spot] == '____':
             if vehicle == 1:
@@ -57,17 +60,19 @@ class Garage():
                 self.parking.pop(parking_spot)
                 self.parking[parking_spot:parking_spot] = [bike]
             else:
-                print('Please enter a valid number')
+                print('\t' + 'Please enter a valid number')
         else:
             print('Parking spot is already taken')
-        print(f'{parking_spot} ticket has been administered - find open spot')
+        print(f'Spot {parking_spot + 1} has been administered - Find your spot')
 
     def pay_for_parking(self):
+        print('\n')
         amount = int(input('Please pay $15(type 15 for $15)'))
         if amount == 15:
             self.current_ticket['paid'] = True
+            print('\n' + 'Thank you - You have 15 minutes to leave')
         else: 
-            print('Please pay the fixed amount')
+            print('\t' + 'Please pay the fixed amount')
             self.pay_for_parking()       
     
     def leave_garage(self):
@@ -89,7 +94,6 @@ class Garage():
 
 
     def runner(self):
-        self.create_garage()
         self.space_display()
         self.display_garage()
         option = int(input('Enter number to choose | 1: Take Ticket | 2: Pay for Ticket | 3: Leave Garage | 4: Quit | '))
@@ -102,15 +106,15 @@ class Garage():
         if option == 3:
             self.display_garage_spots()
             self.leave_garage()
-            print('Thank you, have a nice day!')
+            print('\n' + 'Thank you, have a nice day!')
         if option == 4:
             exit()
         else:
-            print('Please enter a valid number')
             self.runner()
         
         
 
 var = int(input('How many spaces should be in the Garage?: '))
 luke = Garage(var)
+luke.create_garage()
 luke.runner()
