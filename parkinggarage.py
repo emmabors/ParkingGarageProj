@@ -3,7 +3,7 @@ class Garage():
         self.num_of_tickets = num_of_tickets
         self.tickets = []
         self.parking = []
-        self.current_ticket = {}
+        self.current_ticket = {'paid':False}
 
     def create_garage(self):
         self.tickets = [i + 1 for i in range(self.num_of_tickets)]
@@ -23,6 +23,17 @@ class Garage():
                 parked += f'|_{x}     |'
             elif i % 2 == 1:
                 parked += f'|_{x}     |'[::-1] +  '\n'
+        print(parked)
+
+    def display_garage_spots(self):
+        print('              / \ ')
+        print('__________----|_|_______')
+        parked = ''
+        for i, x in enumerate(self.parking):
+            if i % 2 == 0:
+                parked += str(i+1) + f'|_{x}     |'
+            elif i % 2 == 1:
+                parked += f'|_{x}     |'[::-1] +  str(i+1) +'\n'
         print(parked)
 
     def take_ticket(self):
@@ -62,32 +73,44 @@ class Garage():
     def leave_garage(self):
         parking_spot = int(input('What spot were you in?: '))
         parking_spot -= 1
-        if  self.parking[parking_spot] != '____':
+        if self.parking[parking_spot] != '____':
             if self.current_ticket['paid'] == True:
                 self.parking.pop(parking_spot)
                 self.parking[parking_spot:parking_spot] = ['____']
-                self.tickets[parking_spot:parking_spot] = [parking_spot + 1] 
+                self.tickets[parking_spot:parking_spot] = [parking_spot + 1]
+                self.current_ticket['paid'] = False
             else:
+                print('Please pay for ticket')
                 self.pay_for_parking()
         else:
             print('space is already empty')
-        print('Thank you, have a nice day!')
+
                    
 
 
     def runner(self):
         self.create_garage()
-        print(self.tickets)
-        self.display_garage()
-        self.take_ticket()
         self.space_display()
         self.display_garage()
-        self.pay_for_parking()
-        self.leave_garage()
-        print(self.tickets)
-        self.display_garage()
+        option = int(input('Enter number to choose | 1: Take Ticket | 2: Pay for Ticket | 3: Leave Garage | 4: Quit | '))
+        if option == 1:
+            self.display_garage_spots()
+            self.take_ticket()
+            self.runner()
+        if option == 2:
+            self.pay_for_parking()
+        if option == 3:
+            self.display_garage_spots()
+            self.leave_garage()
+            print('Thank you, have a nice day!')
+        if option == 4:
+            exit()
+        else:
+            print('Please enter a valid number')
+            self.runner()
+        
         
 
-
-luke = Garage(20)
+var = int(input('How many spaces should be in the Garage?: '))
+luke = Garage(var)
 luke.runner()
