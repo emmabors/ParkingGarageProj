@@ -1,10 +1,11 @@
-# Luke
+# ---------------------------------------------------Luke
+
 class Garage():
     def __init__(self, num_of_tickets):
         self.num_of_tickets = num_of_tickets
         self.tickets = []
         self.parking = []
-        self.current_ticket = {'paid':False}
+        self.current_ticket = {'paid': False}
 
     def create_garage(self):
         self.tickets = [i + 1 for i in range(self.num_of_tickets)]
@@ -15,7 +16,7 @@ class Garage():
     def space_display(self):
         print(f'\nSpaces open: {len(self.tickets)}')
 
-    def display_garage(self):       
+    def display_garage(self):
         print('              / \ ')
         print('__________----|_|_______')
         parked = ''
@@ -23,7 +24,7 @@ class Garage():
             if i % 2 == 0:
                 parked += f'|_{x}     |'
             elif i % 2 == 1:
-                parked += f'|_{x}     |'[::-1] +  '\n'
+                parked += f'|_{x}     |'[::-1] + '\n'
         print(parked)
 
     def display_garage_spots(self):
@@ -34,20 +35,23 @@ class Garage():
             if i % 2 == 0:
                 parked += str(i+1) + f'|_{x}     |'
             elif i % 2 == 1:
-                parked += f'|_{x}     |'[::-1] +  str(i+1) +'\n'
+                parked += f'|_{x}     |'[::-1] + str(i+1) + '\n'
         print(parked)
-# Emma
+
+# -----------------------------------------------Emma
+
     def take_ticket(self):
         bike = '.-._'
         truck = ':-:='
         car = ':-:_'
         print('\n')
-        vehicle = int(input('What kind of vehicle do you have? | 1: Car | 2: Truck | 3: Bike |'))
+        vehicle = int(
+            input('What kind of vehicle do you have? | 1: Car | 2: Truck | 3: Bike | :'))
         print('\n')
         parking_spot = int(input('What Spot would you like to take?'))
         print('\n')
         parking_spot -= 1
-        if  self.parking[parking_spot] == '____':
+        if self.parking[parking_spot] == '____':
             if vehicle == 1:
                 self.tickets.pop(parking_spot)
                 self.parking.pop(parking_spot)
@@ -72,10 +76,10 @@ class Garage():
         if amount == 15:
             self.current_ticket['paid'] = True
             print('\n' + 'Thank you - You have 15 minutes to leave')
-        else: 
+        else:
             print('\t' + 'Please pay the fixed amount')
-            self.pay_for_parking()       
-    
+            self.pay_for_parking()
+
     def leave_garage(self):
         parking_spot = int(input('What spot were you in?: '))
         parking_spot -= 1
@@ -91,31 +95,56 @@ class Garage():
         else:
             print('space is already empty')
 
-                   
+# -------------------------------------------Luke
 
-# Luke
     def runner(self):
         self.space_display()
         self.display_garage()
-        option = int(input('Enter number to choose | 1: Take Ticket | 2: Pay for Ticket | 3: Leave Garage | 4: Quit | '))
+        option = int(input(
+            'Enter number to choose | 1: Take Ticket | 2: Pay | 3: Leave Garage | 4: Select Floor | :'))
         if option == 1:
             self.display_garage_spots()
             self.take_ticket()
             self.runner()
-        if option == 2:
+        elif option == 2:
             self.pay_for_parking()
-        if option == 3:
+        elif option == 3:
             self.display_garage_spots()
             self.leave_garage()
             print('\n' + 'Thank you, have a nice day!')
-        if option == 4:
-            exit()
+            self.runner()
+        elif option == 4:
+            main()
         else:
             self.runner()
-        
-        
+        self.runner()
 
-var = int(input('How many spaces should be in the Garage?: '))
-luke = Garage(var)
-luke.create_garage()
-luke.runner()
+# -----------------------------------MAIN----------------------------------------------
+
+
+print('\n\n----------------Welcome to our 2 floor garage!-------------------\n\n')
+var = int(input('How many parking spaces are on each floor? :'))
+print('\n')
+
+floor1 = Garage(var)
+floor2 = Garage(var)
+floor1.create_garage()
+floor2.create_garage()
+
+
+def main():
+    while True:
+        var2 = int(input('\n\n\tSelect Floor 1 or 2 (4 to Exit) :'))
+        if var2 == 1:
+            print('\n\t--FLOOR 1--')
+            floor1.runner()
+        elif var2 == 2:
+            print('\n\t--FLOOR 2--')
+            floor2.runner()
+        elif var2 == 4:
+            exit()
+        else:
+            print('Error! Please type a valid number.')
+
+
+main()

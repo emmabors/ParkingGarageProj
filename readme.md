@@ -1,2 +1,12 @@
-Luke created the Garage class, create_garage, displays and runner 
-Emma created take_ticket, pay_for_parking and leave_garage
+Luke
+    Garage class
+    create_garage
+    display garage
+    runner
+    Added Floors 
+
+
+Emma 
+    created take_ticket, 
+    pay_for_parking,
+    leave_garage
